@@ -12,3 +12,8 @@ After working on [RustyScheme](https://github.com/KMJ-007/RustyScheme), i wanted
 
 - https://maxbittker.com/making-sandspiel
 - https://youtu.be/prXuyMCgbTc?si=SdiQreRYSaxYfBbU
+
+
+```
+trunk serve
+```
