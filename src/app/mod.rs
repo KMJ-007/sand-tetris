@@ -1,3 +1,13 @@
+mod particle;
+use lazy_static::lazy_static;
+
+const SCALE: usize = 100;
+const GRAVITY: f64 = 0.9;
+lazy_static! {
+    static ref WINDOW_SIZE: [usize; 2] = [600, 600];
+    static ref GRID_SIZE: [usize; 2] = [WINDOW_SIZE[0] / SCALE, WINDOW_SIZE[1] / SCALE];
+}
+
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
@@ -48,26 +58,18 @@ impl eframe::App for SandTetrisApp {
         // Put your widgets into a `SidePanel`, `TopBottomPanel`, `CentralPanel`, `Window` or `Area`.
         // For inspiration and more examples, go to https://emilk.github.io/egui
 
-        egui::CentralPanel::default().show(ctx, |ui| {
-            // The central panel the region left after adding TopPanel's and SidePanel's
-            ui.heading("Sand Tetris");
-
-            ui_counter(ui, &mut self.counter);
-
-            
+        egui::CentralPanel::default().show(ctx, |ui: &mut egui::Ui| {
+          // grid
+          egui::Grid::new("grid").show(ui, |ui| {
+            // make matrix grid
+            for _ in 0..GRID_SIZE[0]{
+                // draw 3x3 grid
+                for _ in 0..GRID_SIZE[1] {
+                    ui.label("Hello Karan!");
+                }
+                    ui.end_row();
+                }
+            });
         });
-        
     }
-}
-
-fn ui_counter(ui: &mut egui::Ui, counter: &mut i32) {
-    ui.horizontal(|ui| {
-        if ui.button("-").clicked(){
-            *counter -= 1;
-        }
-        ui.label(counter.to_string());
-        if ui.button("+").clicked(){
-            *counter += 1;
-        }
-    });
 }
